@@ -6,11 +6,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [
-    UsersComponent,
-    EditProfileComponent,
-    ProfileComponent
-  ],
+  declarations: [UsersComponent, EditProfileComponent, ProfileComponent],
   imports: [CommonModule, AppMaterialModule],
 })
-export class UsersModule {}
+export class UserModule {}
