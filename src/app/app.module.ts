@@ -6,10 +6,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppMaterialModule } from './app-material.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AppMaterialModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
