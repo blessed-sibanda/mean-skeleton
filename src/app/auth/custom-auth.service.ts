@@ -32,11 +32,9 @@ export class CustomAuthService extends AuthService {
   }
 
   protected transformJwtToken(token: IJwtToken): IAuthStatus {
-    console.log('Token -->', token);
     return {
       isAuthenticated: token.email ? true : false,
       userId: token.id,
-      userEmail: token.email,
     } as IAuthStatus;
   }
 

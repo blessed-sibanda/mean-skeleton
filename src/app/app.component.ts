@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import { AuthService } from './auth/auth.service';
 import { SideNavigationService } from './core/side-navigation.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class AppComponent implements AfterViewInit {
 
   constructor(
     public media: MediaObserver,
-    public sideNavService: SideNavigationService
+    public sideNavService: SideNavigationService,
+    public authService: AuthService
   ) {}
 
   ngAfterViewInit(): void {

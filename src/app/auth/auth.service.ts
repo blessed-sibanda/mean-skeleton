@@ -25,7 +25,7 @@ export interface IAuthService {
   readonly authStatus$: BehaviorSubject<IAuthStatus>;
   readonly currentUser$: BehaviorSubject<IUser>;
   login(email: string, password: string): Observable<void>;
-  logout(clearToken?: boolean): void;
+  logout(): void;
   getToken(): string;
 }
 
@@ -48,7 +48,7 @@ export abstract class AuthService extends CacheService implements IAuthService {
   constructor() {
     super();
     if (this.hasExpiredToken()) {
-      this.logout(true);
+      this.logout();
     } else {
       this.authStatus$.next(this.getAuthStatusFromToken());
       // To load user on browser refresh,
@@ -80,8 +80,8 @@ export abstract class AuthService extends CacheService implements IAuthService {
     return loginResponse$;
   }
 
-  logout(clearToken?: boolean): void {
-    if (clearToken) this.clearToken();
+  logout(): void {
+    this.clearToken();
     setTimeout(() => this.authStatus$.next(defaultAuthStatus), 0);
   }
 

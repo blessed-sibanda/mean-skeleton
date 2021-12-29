@@ -29,11 +29,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.authService.logout();
     this.buildForm();
   }
 
   ngOnDestroy(): void {
-    this.authService.logout();
     this.subs.unsubscribe();
   }
 

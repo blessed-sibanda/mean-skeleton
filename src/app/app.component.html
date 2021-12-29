@@ -14,7 +14,9 @@
     routerLink="/home"
     >Home</a
   >
+
   <a
+    *ngIf="!(authService.authStatus$ | async)?.isAuthenticated"
     fxHide.lt-sm
     mat-button
     color="accent"
@@ -23,12 +25,22 @@
     >Login</a
   >
   <a
+    *ngIf="!(authService.authStatus$ | async)?.isAuthenticated"
     fxHide.lt-sm
     mat-button
     color="accent"
     routerLinkActive="active"
     routerLink="/signup"
     >SignUp</a
+  >
+  <a
+    *ngIf="(authService.authStatus$ | async)?.isAuthenticated"
+    fxHide.lt-sm
+    mat-button
+    color="accent"
+    routerLinkActive="active"
+    routerLink="/logout"
+    >Logout</a
   >
 </mat-toolbar>
 <mat-sidenav-container>
