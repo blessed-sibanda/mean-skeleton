@@ -1,8 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
-    <h1>MEAN Skeleton</h1>
+    <span fxLayout="row" fxLayoutAlign="start center">
+      <button fxHide.gt-xs mat-icon-button (click)="sideNavService.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>MEAN Skeleton</span>
+    </span>
 
-    <div>
+    <div fxHide.lt-sm>
       <a mat-button color="accent" routerLinkActive="active" routerLink="/home"
         >Home</a
       >
@@ -19,5 +24,14 @@
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav
+    [fixedInViewport]="media.isActive('xs')"
+    #sidenav
+    [mode]="media.isActive('xs') ? 'over' : 'side'"
+  >
+    <app-side-navigation></app-side-navigation>
+  </mat-sidenav>
+</mat-sidenav-container>
 
 <router-outlet></router-outlet>

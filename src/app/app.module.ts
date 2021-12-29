@@ -4,15 +4,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './core/home/home.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { SideNavigationComponent } from './core/side-navigation/side-navigation.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, SideNavigationComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
