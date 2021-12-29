@@ -11,10 +11,14 @@ import { AppMaterialModule } from './app-material.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { SideNavigationComponent } from './core/side-navigation/side-navigation.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/auth.service';
+import { CustomAuthService } from './auth/custom-auth.service';
+import { AuthHttpInterceptor } from './auth/auth-http-interceptor';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,7 @@ import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.comp
     SideNavigationComponent,
     SignUpComponent,
     SimpleDialogComponent,
+    LoginComponent,
   ],
   imports: [
     HttpClientModule,
@@ -37,7 +42,17 @@ import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.comp
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthService,
+      useClass: CustomAuthService,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

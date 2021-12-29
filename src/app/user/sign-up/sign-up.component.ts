@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UiService } from 'src/app/common/ui.service';
@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
   signUpForm!: FormGroup;
   signUpError: string | undefined;
   subs = new SubSink();
@@ -26,6 +26,10 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   buildForm() {
