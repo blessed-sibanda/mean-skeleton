@@ -1,5 +1,23 @@
 <mat-toolbar color="primary">
-  <h1>MEAN Skeleton</h1>
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <h1>MEAN Skeleton</h1>
+
+    <div>
+      <a mat-button color="accent" routerLinkActive="active" routerLink="/home"
+        >Home</a
+      >
+      <a mat-button color="accent" routerLinkActive="active" routerLink="/login"
+        >Login</a
+      >
+      <a
+        mat-button
+        color="accent"
+        routerLinkActive="active"
+        routerLink="/signup"
+        >SignUp</a
+      >
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
