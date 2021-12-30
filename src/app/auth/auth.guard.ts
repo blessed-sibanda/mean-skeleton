@@ -62,13 +62,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   ): Observable<boolean> {
     return this.authService.authStatus$.pipe(
       map((authStatus) => {
-        const isOwner = this.checkIsOwner(authStatus, route);
-        if (!isOwner) {
-          this.uiService.showToast(
-            'Only the profile owner is allowed to perform this action'
-          );
-          return false;
-        }
         if (!authStatus.isAuthenticated) {
           this.uiService.showToast('You must login to continue');
           this.router.navigate(['login'], {
@@ -76,8 +69,20 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
               redirectUrl: this.getResolvedUrl(route),
             },
           });
+
+          return false;
         }
-        return authStatus.isAuthenticated;
+
+        const isOwner = this.checkIsOwner(authStatus, route);
+        if (!isOwner) {
+          this.uiService.showToast(
+            'Only the profile owner is allowed to perform this action'
+          );
+          this.router.navigate([`/users/${authStatus.userId}`]);
+          return false;
+        }
+
+        return true;
       }),
       take(1) // the observable must complete for the guard to work
     );
