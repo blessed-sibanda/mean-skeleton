@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginError: string | undefined;
   subs = new SubSink();
   redirectUrl: string | null | undefined;
-  hidePassword = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           let user = this.authService.currentUser$.getValue();
           if (authStatus.isAuthenticated && user?._id !== '') {
             this.uiService.showToast(`Welcome ${user.name}!`);
-            this.router.navigate(['/home']);
+            this.router.navigate([this.redirectUrl || '/home']);
           }
         },
       });
