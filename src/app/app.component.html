@@ -1,4 +1,4 @@
-<mat-toolbar class="app-toolbar" color="primary">
+<mat-toolbar color="primary">
   <button fxHide.gt-xs mat-icon-button (click)="sideNavService.open()">
     <mat-icon>menu</mat-icon>
   </button>
@@ -8,6 +8,10 @@
 
   <a fxHide.lt-sm mat-button routerLinkActive="active" routerLink="/home"
     >Home</a
+  >
+
+  <a fxHide.lt-sm mat-button routerLinkActive="active" routerLink="/users"
+    >Users</a
   >
 
   <a
@@ -44,7 +48,7 @@
   >
     <app-side-navigation></app-side-navigation>
   </mat-sidenav>
-  <mat-sidenav-content style="min-height: 85vh; padding-top: 1.5em">
+  <mat-sidenav-content style="min-height: 90vh; padding-top: 1.5em">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

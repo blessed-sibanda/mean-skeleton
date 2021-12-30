@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginError: string | undefined;
   subs = new SubSink();
   redirectUrl: string | null | undefined;
+  hidePassword = true;
 
   constructor(
     private formBuilder: FormBuilder,

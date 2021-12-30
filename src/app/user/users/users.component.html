@@ -1,1 +1,19 @@
-<p>users works!</p>
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-action-list fxFlex.xs="96%" fxFlex.gt-xs="600px">
+    <mat-card>
+      <div mat-subheader>Users</div>
+      <button
+        mat-list-item
+        *ngFor="let user of users"
+        [routerLink]="'/users/' + user._id"
+      >
+        <mat-icon mat-list-avatar>account_user</mat-icon>
+        <p>{{ user.name }}</p>
+        <div class="flex-spacer"></div>
+        <button mat-icon-button [routerLink]="'/users/' + user._id">
+          <mat-icon>arrow-forward</mat-icon>
+        </button>
+      </button>
+    </mat-card>
+  </mat-action-list>
+</div>

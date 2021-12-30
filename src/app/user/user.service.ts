@@ -7,6 +7,7 @@ import { transformError } from '../common/common';
 
 interface IUserService {
   signUp(userData: ISignUp): Observable<User>;
+  getUsers(): Observable<User[]>;
 }
 
 @Injectable({
@@ -14,6 +15,12 @@ interface IUserService {
 })
 export class UserService implements IUserService {
   constructor(private httpClient: HttpClient) {}
+
+  getUsers(): Observable<User[]> {
+    return this.httpClient
+      .get<IUser[]>(`${environment.baseApiUrl}/users`)
+      .pipe(map(User.BuildMany), catchError(transformError));
+  }
 
   signUp(userData: ISignUp): Observable<User> {
     return this.httpClient

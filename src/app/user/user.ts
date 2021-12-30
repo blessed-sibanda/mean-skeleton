@@ -22,4 +22,8 @@ export class User implements IUser {
   static Build(user: IUser): User {
     return new User(user._id, user.email, user.name, user.createdAt);
   }
+
+  static BuildMany(users: IUser[]): User[] {
+    return users.map((u) => User.Build(u));
+  }
 }

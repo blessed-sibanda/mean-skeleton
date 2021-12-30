@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { SideNavigationService } from '../side-navigation.service';
 
 @Component({
@@ -7,7 +8,10 @@ import { SideNavigationService } from '../side-navigation.service';
   styleUrls: ['./side-navigation.component.scss'],
 })
 export class SideNavigationComponent {
-  constructor(private sideNavService: SideNavigationService) {}
+  constructor(
+    private sideNavService: SideNavigationService,
+    public authService: AuthService
+  ) {}
 
   closeMenu() {
     this.sideNavService.close();
