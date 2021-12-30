@@ -1,11 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <mat-card fxFlex.xs="98%" fxFlex.gt-xs="400px">
-    <mat-card-header>
-      <mat-card-title>
-        <div class="mat-headline">Sign Up</div>
-      </mat-card-title>
-    </mat-card-header>
     <mat-card-content>
+      <h1 class="app-header text-center">Sign Up</h1>
       <form
         [formGroup]="signUpForm"
         (ngSubmit)="signUp(signUpForm.getRawValue())"
