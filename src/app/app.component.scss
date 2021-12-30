@@ -1,5 +1,7 @@
+@import "../variables";
+
 .active {
-  color: white;
+  color: $accent;
 }
 
 .app-container {
