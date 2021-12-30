@@ -19,7 +19,12 @@
           >
             <mat-icon>edit</mat-icon>
           </button>
-          <button color="accent" *ngIf="isOwner()" mat-icon-button>
+          <button
+            color="accent"
+            *ngIf="isOwner()"
+            (click)="deleteAccount(user._id)"
+            mat-icon-button
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </mat-list-item>

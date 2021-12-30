@@ -9,6 +9,7 @@ interface IUserService {
   signUp(userData: ISignUp): Observable<User>;
   getUsers(): Observable<User[]>;
   getUser(id: string | null): Observable<User>;
+  deleteUser(id: string | null): Observable<any>;
   updateUser(id: string | null, data: object): Observable<User>;
 }
 
@@ -17,6 +18,10 @@ interface IUserService {
 })
 export class UserService implements IUserService {
   constructor(private httpClient: HttpClient) {}
+
+  deleteUser(id: string | null): Observable<any> {
+    return this.httpClient.delete<any>(`${environment.baseApiUrl}/users/${id}`);
+  }
 
   updateUser(id: string | null, data: object): Observable<User> {
     if (id === null) {
