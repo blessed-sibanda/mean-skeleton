@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, catchError } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 import { User, IUser, ISignUp } from './user';
 import { environment } from '../../environments/environment';
 import { transformError } from '../common/common';
@@ -8,6 +8,7 @@ import { transformError } from '../common/common';
 interface IUserService {
   signUp(userData: ISignUp): Observable<User>;
   getUsers(): Observable<User[]>;
+  getUser(id: string | null): Observable<User>;
 }
 
 @Injectable({
@@ -15,6 +16,16 @@ interface IUserService {
 })
 export class UserService implements IUserService {
   constructor(private httpClient: HttpClient) {}
+
+  getUser(id: string | null): Observable<User> {
+    if (id === null) {
+      return throwError(() => new Error('User id is not set'));
+    }
+
+    return this.httpClient
+      .get<IUser>(`${environment.baseApiUrl}/users/${id}`)
+      .pipe(map(User.Build), catchError(transformError));
+  }
 
   getUsers(): Observable<User[]> {
     return this.httpClient

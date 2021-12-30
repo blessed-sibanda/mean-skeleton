@@ -6,6 +6,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserRoutingModule } from './user-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UserResolve } from './user.resolve';
 
 @NgModule({
   declarations: [UsersComponent, EditProfileComponent, ProfileComponent],
@@ -15,5 +16,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     UserRoutingModule,
     FlexLayoutModule,
   ],
+  providers: [UserResolve],
 })
 export class UserModule {}

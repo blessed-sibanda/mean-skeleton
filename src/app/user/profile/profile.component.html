@@ -1,1 +1,6 @@
-<p>profile works!</p>
+<h1>{{ user.name }}</h1>
+<a
+  *ngIf="user._id === currentUser._id"
+  [routerLink]="'/users/' + user._id + '/edit'"
+  >Edit</a
+>

@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.checkLogin(route);
+    return this.checkAuthorizations(route);
   }
 
   canActivateChild(
@@ -44,7 +44,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.checkLogin(childRoute);
+    return this.checkAuthorizations(childRoute);
   }
   canLoad(
     route: Route,
@@ -54,23 +54,30 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.checkLogin();
+    return this.checkAuthorizations();
   }
 
-  protected checkLogin(route?: ActivatedRouteSnapshot): Observable<boolean> {
+  protected checkAuthorizations(
+    route?: ActivatedRouteSnapshot
+  ): Observable<boolean> {
     return this.authService.authStatus$.pipe(
       map((authStatus) => {
         const isOwner = this.checkIsOwner(authStatus, route);
-        const authorize = authStatus.isAuthenticated && isOwner;
-        if (!authorize) {
-          this.showAlert(authStatus.isAuthenticated, isOwner);
+        if (!isOwner) {
+          this.uiService.showToast(
+            'Only the profile owner is allowed to perform this action'
+          );
+          return false;
+        }
+        if (!authStatus.isAuthenticated) {
+          this.uiService.showToast('You must login to continue');
           this.router.navigate(['login'], {
             queryParams: {
               redirectUrl: this.getResolvedUrl(route),
             },
           });
         }
-        return authorize;
+        return authStatus.isAuthenticated;
       }),
       take(1) // the observable must complete for the guard to work
     );
@@ -83,18 +90,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if (!route?.data?.['onlyOwner']) {
       return true;
     }
-    return authStatus.userId === route.params['userId'];
-  }
-
-  private showAlert(isAuth: boolean, isOwner: boolean) {
-    if (!isAuth) {
-      this.uiService.showToast('You must login to continue');
-    }
-    if (!isOwner) {
-      this.uiService.showToast(
-        'Only the profile owner is allowed to perform this action'
-      );
-    }
+    return authStatus.userId === route.paramMap.get('userId');
   }
 
   getResolvedUrl(route?: ActivatedRouteSnapshot): string {
