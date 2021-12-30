@@ -1,6 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <mat-card fxFlex.xs="96%" fxFlex.gt-xs="600px">
-    <mat-action-list>
+    <div *ngIf="loading">Loading...</div>
+    <mat-action-list *ngIf="!loading">
       <div mat-subheader>Users</div>
       <mat-list-item
         [routerLink]="'/users/' + user._id"

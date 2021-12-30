@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { combineLatest, tap } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { SubSink } from 'subsink';
 import { User } from '../user';
 import { UserService } from '../user.service';
@@ -13,18 +15,26 @@ export class UsersComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   subs = new SubSink();
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.subs.sink = this.userService.getUsers().subscribe({
-      next: (users) => {
-        this.users = users;
-        this.loading = false;
-      },
-    });
+    this.subs.sink = combineLatest([
+      this.authService.currentUser$,
+      this.userService.getUsers(),
+    ])
+      .pipe(
+        tap(([currentUser, users]) => {
+          this.users = users.filter((u) => u._id !== currentUser._id);
+          this.loading = false;
+        })
+      )
+      .subscribe();
   }
 }
