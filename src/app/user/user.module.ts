@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserRoutingModule } from './user-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserResolve } from './user.resolve';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [UsersComponent, EditProfileComponent, ProfileComponent],
@@ -15,6 +16,7 @@ import { UserResolve } from './user.resolve';
     AppMaterialModule,
     UserRoutingModule,
     FlexLayoutModule,
+    ReactiveFormsModule,
   ],
   providers: [UserResolve],
 })

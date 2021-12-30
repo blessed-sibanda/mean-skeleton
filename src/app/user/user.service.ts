@@ -9,6 +9,7 @@ interface IUserService {
   signUp(userData: ISignUp): Observable<User>;
   getUsers(): Observable<User[]>;
   getUser(id: string | null): Observable<User>;
+  updateUser(id: string | null, data: object): Observable<User>;
 }
 
 @Injectable({
@@ -16,6 +17,17 @@ interface IUserService {
 })
 export class UserService implements IUserService {
   constructor(private httpClient: HttpClient) {}
+
+  updateUser(id: string | null, data: object): Observable<User> {
+    if (id === null) {
+      return throwError(() => new Error('User id is not set'));
+    }
+
+    return this.httpClient.put<IUser>(
+      `${environment.baseApiUrl}/users/${id}`,
+      data
+    );
+  }
 
   getUser(id: string | null): Observable<User> {
     if (id === null) {

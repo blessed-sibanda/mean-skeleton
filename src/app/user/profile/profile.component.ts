@@ -18,6 +18,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.route.snapshot.data['user'];
-    this.currentUser = this.authService.currentUser$.getValue();
+  }
+
+  isOwner() {
+    return this.user._id === this.authService.currentUser$.getValue()._id;
   }
 }

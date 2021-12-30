@@ -1,6 +1,35 @@
-<h1>{{ user.name }}</h1>
-<a
-  *ngIf="user._id === currentUser._id"
-  [routerLink]="'/users/' + user._id + '/edit'"
-  >Edit</a
->
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-card fxFlex.xs="96%" fxFlex.gt-xs="600px">
+    <mat-card-title class="accent">Profile</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <mat-icon mat-list-icon style="transform: scale(1.8)"
+            >account_circle</mat-icon
+          >
+
+          <h4 mat-line>{{ user.name }}</h4>
+          <h5 mat-line>{{ user.email }}</h5>
+
+          <div class="flex-spacer"></div>
+          <button
+            *ngIf="isOwner()"
+            [routerLink]="'/users/' + user._id + '/edit'"
+            mat-icon-button
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button color="accent" *ngIf="isOwner()" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-divider inset></mat-divider>
+        <mat-list-item>
+          <span class="mat-caption"
+            >Joined: {{ user.createdAt | date: "mediumDate" }}</span
+          >
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
