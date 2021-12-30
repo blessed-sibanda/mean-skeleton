@@ -8,6 +8,15 @@
     <span>Users</span>
   </a>
   <a
+    (click)="closeMenu()"
+    *ngIf="(authService.authStatus$ | async)?.isAuthenticated"
+    mat-list-item
+    routerLink="/profile"
+  >
+    <mat-icon mat-list-icon>person</mat-icon>
+    <span>My Profile</span>
+  </a>
+  <a
     *ngIf="!(authService.authStatus$ | async)?.isAuthenticated"
     (click)="closeMenu()"
     mat-list-item
@@ -34,7 +43,7 @@
     mat-list-item
     routerLink="/logout"
   >
-    <mat-icon mat-list-icon>exit</mat-icon>
+    <mat-icon mat-list-icon>power_settings_new</mat-icon>
     <span>Logout</span>
   </a>
 </mat-nav-list>
