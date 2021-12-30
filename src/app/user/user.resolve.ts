@@ -4,19 +4,27 @@ import {
   Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
-import { catchError, map, Observable } from 'rxjs';
-import { IUser, User } from './user';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { IUser } from './user';
 import { UserService } from './user.service';
-import { transformError } from '../common/common';
 
 @Injectable()
 export class UserResolve implements Resolve<IUser> {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): IUser | Observable<IUser> | Promise<IUser> {
-    return this.userService.getUser(route.paramMap.get('userId'));
+    const userId = route.paramMap.get('userId');
+    if (userId) {
+      return this.userService.getUser(userId);
+    } else {
+      return this.authService.getCurrentUser();
+    }
   }
 }

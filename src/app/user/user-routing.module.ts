@@ -8,17 +8,23 @@ import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'users',
     component: UsersComponent,
   },
   {
-    path: ':userId',
+    path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
     resolve: { user: UserResolve },
   },
   {
-    path: ':userId/edit',
+    path: 'users/:userId',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    resolve: { user: UserResolve },
+  },
+  {
+    path: 'users/:userId/edit',
     component: EditProfileComponent,
     canActivate: [AuthGuard],
     data: { onlyOwner: true },

@@ -38,7 +38,7 @@ export class CustomAuthService extends AuthService {
     } as IAuthStatus;
   }
 
-  protected getCurrentUser(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     return this.httpClient
       .get<IUser>(`${environment.baseApiUrl}/auth/me`)
       .pipe(map(User.Build), catchError(transformError));
